@@ -4,6 +4,7 @@ import (
 	"crypto/sha1"
 	"fmt"
 	"io"
+	"log"
 	"sort"
 	"strings"
 
@@ -19,6 +20,7 @@ func procSignature(c *gin.Context) {
 	verify := &model.Verify{}
 	c.BindQuery(verify)
 	signatureGen := makeSignature(verify.Timestamp, verify.Nonce)
+	log.Println(signatureGen)
 	if signatureGen != verify.Signature {
 		c.String(200, "")
 		return
