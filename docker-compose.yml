@@ -9,3 +9,23 @@ services:
     environment:
       - TOKEN=ilovehuyue
       - ID=gh_fec02afadc2e
+      - DB_USER=root
+      - DB_PWD=
+      - DB_URL=mysql:3306
+      - DB_NAME=wx
+    networks:
+      - default
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql
+    ports:
+      - "3306:3306"
+    container_name: "wx_mysql"
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+    volumes:
+      - "~/mysql/weixin:/var/lib/mysql"
+    networks:
+      - default
