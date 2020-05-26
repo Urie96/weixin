@@ -3,6 +3,8 @@ package model
 import (
 	"fmt"
 	"time"
+
+	"github.com/Urie96/weixin/constant"
 )
 
 type Msg struct {
@@ -14,15 +16,10 @@ type Msg struct {
 	MsgId        int
 }
 
-const (
-	cdata  = `<![CDATA[%s]]>`
-	myname = "yang"
-)
-
 func NewMsg(touser string) *Msg {
 	return &Msg{
 		ToUserName:   touser,
-		FromUserName: myname,
+		FromUserName: constant.ID,
 		MsgType:      "text",
 		CreateTime:   int(time.Now().UTC().Unix()),
 	}

@@ -8,12 +8,9 @@ import (
 	"sort"
 	"strings"
 
+	"github.com/Urie96/weixin/constant"
 	"github.com/Urie96/weixin/model"
 	"github.com/gin-gonic/gin"
-)
-
-const (
-	token = "ilovehuyue" //设置token
 )
 
 func procSignature(c *gin.Context) {
@@ -29,7 +26,7 @@ func procSignature(c *gin.Context) {
 }
 
 func makeSignature(timestamp, nonce string) string { //本地计算signature
-	si := []string{token, timestamp, nonce}
+	si := []string{constant.TOKEN, timestamp, nonce}
 	sort.Strings(si)            //字典序排序
 	str := strings.Join(si, "") //组合字符串
 	s := sha1.New()             //返回一个新的使用SHA1校验的hash.Hash接口

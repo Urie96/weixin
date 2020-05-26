@@ -1,0 +1,11 @@
+version: "3.5"
+
+services:
+  wxservice:
+    image: wxservice:latest
+    ports:
+      - "7001:7001"
+    container_name: "wxservice"
+    environment:
+      - TOKEN=ilovehuyue
+      - ID=gh_fec02afadc2e
