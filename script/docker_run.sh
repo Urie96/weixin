@@ -1,4 +1,5 @@
 docker stop wxservice
+docker rm wxservice
 docker rmi -f wxservice:latest
 docker build -t wxservice:latest -f ../Dockerfile ..
 docker rmi $(docker images | grep "none" | awk '{print $3}')
