@@ -1,4 +1,3 @@
-cd scripts
 docker-compose down
 docker rmi -f wxservice:latest
 docker build -t wxservice:latest .
