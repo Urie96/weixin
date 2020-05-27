@@ -20,11 +20,11 @@ import (
 func insertAccessToken(c *gin.Context) {
 	token, err := getAccessTokenFromWX()
 	if err != nil {
-		c.AbortWithError(10000, err)
+		c.AbortWithError(500, err)
 	}
 	err = dao.InsertAccessToken(token)
 	if err != nil {
-		c.AbortWithError(10001, err)
+		c.AbortWithError(500, err)
 	}
 	c.AbortWithStatus(200)
 }

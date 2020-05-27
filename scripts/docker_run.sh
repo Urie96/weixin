@@ -3,4 +3,4 @@
 # docker build -t wxservice:latest .
 # docker rmi $(docker images | grep "none" | awk '{print $3}')
 docker-compose up -d --build
-docker rmi $(docker images | grep "none" | awk '{print $3}')
+docker rmi -f $(docker images | grep "none" | awk '{print $3}')
