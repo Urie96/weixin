@@ -21,10 +21,12 @@ func insertAccessToken(c *gin.Context) {
 	token, err := getAccessTokenFromWX()
 	if err != nil {
 		c.AbortWithError(500, err)
+		return
 	}
 	err = dao.InsertAccessToken(token)
 	if err != nil {
 		c.AbortWithError(500, err)
+		return
 	}
 	c.AbortWithStatus(200)
 }
@@ -44,8 +46,8 @@ func getAccessTokenFromWX() (*model.AccessToken, error) {
 
 func sendParamToWX() *model.AccessToken {
 	ret := &model.AccessToken{CreatedAt: int32(time.Now().UTC().Unix())}
-	url := fmt.Sprintf("%s?grant_type=%s&appid=%s&secret=%s",
-		constant.GET_TOKEN_URL, constant.CLIENT_CREDENTIAL, constant.APPID, constant.SECRET)
+	url := fmt.Sprintf("%s/token?grant_type=%s&appid=%s&secret=%s",
+		constant.WX_API, constant.CLIENT_CREDENTIAL, constant.APPID, constant.SECRET)
 	resp, err := http.Get(url)
 	if err != nil {
 		log.Println("Get access token from wx error:", err)

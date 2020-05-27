@@ -10,6 +10,6 @@ var (
 )
 
 const (
-	GET_TOKEN_URL     = "https://api.weixin.qq.com/cgi-bin/token"
+	WX_API            = "https://api.weixin.qq.com/cgi-bin"
 	CLIENT_CREDENTIAL = "client_credential"
 )
