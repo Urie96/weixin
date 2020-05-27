@@ -13,7 +13,7 @@ var db *gorm.DB
 
 func init() {
 	url := fmt.Sprintf("%s:%s@(%s)/%s", os.Getenv("DB_USER"), os.Getenv("DB_PWD"), os.Getenv("DB_URL"), os.Getenv("DB_NAME"))
-	db, err := gorm.Open(os.Getenv("DB_DRIVER"), url)
+	db, err := gorm.Open("mysql", url)
 	if err != nil {
 		panic(err)
 		log.Println("failed to init dao")

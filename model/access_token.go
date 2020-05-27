@@ -1,6 +1,13 @@
 package model
 
+const AccessTokenTable = "access_token"
+
 type AccessToken struct {
-	Token     string
-	CreatedAt int32
+	AccessToken string `json:access_token`
+	CreatedAt   int32
+	ExpiresIn   int32 `json:expires_in`
+}
+
+func (a *AccessToken) TableName() string {
+	return AccessTokenTable
 }
