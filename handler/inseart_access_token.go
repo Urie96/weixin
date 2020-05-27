@@ -32,7 +32,7 @@ func insertAccessToken(c *gin.Context) {
 func getAccessTokenFromWX() (*model.AccessToken, error) {
 	token := &model.AccessToken{}
 	retry := 50
-	for token.AccessToken == "" && retry > 0 {
+	for token.Token == "" && retry > 0 {
 		token = sendParamToWX()
 		retry--
 	}
