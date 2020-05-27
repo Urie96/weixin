@@ -21,7 +21,7 @@ func createButton(c *gin.Context) {
 		c.AbortWithError(500, err)
 		return
 	}
-	url := fmt.Sprintf("%s/menu/get?access_token=%s", constant.WX_API, token)
+	url := fmt.Sprintf("%s/menu/create?access_token=%s", constant.WX_API, token.Token)
 	b, err := json.Marshal(drawButton())
 	if err != nil {
 		c.AbortWithError(500, err)
