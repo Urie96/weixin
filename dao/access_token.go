@@ -7,7 +7,7 @@ import (
 )
 
 func InsertAccessToken(accesstoken *model.AccessToken) error {
-	err := db.Create(accesstoken).Error
+	err := db.Table(model.AccessTokenTable).Create(accesstoken).Error
 	if err != nil {
 		log.Println("insert access token error:", err)
 	}
