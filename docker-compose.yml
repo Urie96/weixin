@@ -9,6 +9,7 @@ services:
     volumes:
       - "/etc/localtime:/etc/localtime"
     environment:
+      - PORT=7001
       - TOKEN=ilovehuyue
       - ID=gh_fec02afadc2e
       - APPID=wx6d47f55f0b0216f2

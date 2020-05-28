@@ -12,7 +12,7 @@ import (
 )
 
 func procSignature(c *gin.Context) {
-	verify := struct {
+	verify := &struct {
 		Signature string
 		Timestamp string
 		Nonce     string
