@@ -7,6 +7,6 @@ func Handle(router *gin.Engine) {
 	router.POST("/wx", autoReply)
 	router.HEAD("/accesstoken", insertAccessToken)
 	router.POST("/button", createButton)
-	router.POST("/joke", createJokes)
+	// router.POST("/joke", createJokes)
 	router.GET("/joke", getAJoke)
 }
