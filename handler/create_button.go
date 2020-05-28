@@ -8,10 +8,9 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/Urie96/weixin/model"
-
 	"github.com/Urie96/weixin/constant"
 	"github.com/Urie96/weixin/dao"
+	"github.com/Urie96/weixin/model"
 	"github.com/gin-gonic/gin"
 )
 
