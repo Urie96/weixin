@@ -7,20 +7,23 @@ import (
 	"sort"
 	"strings"
 
+	"github.com/Urie96/weixin/model"
+
 	"github.com/Urie96/weixin/constant"
 	"github.com/gin-gonic/gin"
 )
 
 func procSignature(c *gin.Context) {
-	verify := &struct {
-		Signature string
-		Timestamp string
-		Nonce     string
-		Echostr   string
-	}{}
+	// verify := &struct {
+	// 	Signature string
+	// 	Timestamp string
+	// 	Nonce     string
+	// 	Echostr   string
+	// }{}
+	verify := &model.Verify{}
 	c.BindQuery(verify)
 	if !validateURL(verify.Timestamp, verify.Nonce, verify.Signature) {
-		c.String(200, "")
+		c.AbortWithStatus(403)
 		return
 	}
 	c.String(200, verify.Echostr)

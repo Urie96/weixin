@@ -5,4 +5,5 @@ type Verify struct {
 	Timestamp string `form:"timestamp"`
 	Nonce     string `form:"nonce"`
 	OpenID    string `form:"openid"`
+	Echostr   string `form:"echostr"`
 }

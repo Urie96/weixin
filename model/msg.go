@@ -14,6 +14,8 @@ type Msg struct {
 	MsgType      string
 	Content      string
 	MsgId        int
+	Event        string
+	EventKey     string
 }
 
 func NewMsg(touser string) *Msg {
