@@ -15,9 +15,11 @@ func InsertJoke(joke *model.Joke) error {
 }
 
 func GetRandomJokeContent() (joke string, err error) {
-	err = db.Table(model.JokeTable).Order("RAND()").Limit(1).Pluck("content", joke).Error
+	sli := make([]string, 0)
+	err = db.Table(model.JokeTable).Order("RAND()").Limit(1).Pluck("content", &sli).Error
 	if err != nil {
 		log.Println("get joke from db error(likely empty):", err)
+		return "", err
 	}
-	return joke, err
+	return sli[0], err
 }

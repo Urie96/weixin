@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"net/http"
 	"strings"
-	"time"
 
 	"github.com/Urie96/weixin/dao"
 	"github.com/Urie96/weixin/model"
@@ -33,7 +32,6 @@ func jokeListPage(pageIndex int) {
 
 func jokePage(url string) {
 	// url := "http://www.jokeji.cn/jokehtml/bxnn/2020032818121586.htm"
-	now := int32(time.Now().UTC().Unix())
 	converter, _ := iconv.NewConverter("gb2312", "utf-8")
 	resp, err := http.Get(url)
 	checkError(err)
@@ -46,9 +44,7 @@ func jokePage(url string) {
 			return
 		}
 		joke := &model.Joke{
-			Content:   str[offset:],
-			URL:       url,
-			CreatedAt: now,
+			Content: str[offset:],
 		}
 		insertToDB(joke)
 	})

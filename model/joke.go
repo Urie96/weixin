@@ -3,10 +3,8 @@ package model
 const JokeTable = "joke"
 
 type Joke struct {
-	ID        string
-	Content   string
-	URL       string
-	CreatedAt int32
+	ID      string
+	Content string
 }
 
 func (_ *Joke) TableName() string {
