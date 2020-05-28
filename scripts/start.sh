@@ -4,8 +4,8 @@ export APPID=wx6d47f55f0b0216f2
 export SECRET=f3d6b0d9896a5edd66ea6a538c8d4a40
 
 export DB_USER=root
-export DB_PWD=asd19960803+1S
-export DB_URL=localhost:3306
+export DB_PWD=
+export DB_URL=59.110.71.167:3306
 export DB_NAME=wx
 
 go run ./cmd

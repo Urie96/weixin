@@ -4,25 +4,31 @@ import (
 	"crypto/sha1"
 	"fmt"
 	"io"
-	"log"
 	"sort"
 	"strings"
 
 	"github.com/Urie96/weixin/constant"
-	"github.com/Urie96/weixin/model"
 	"github.com/gin-gonic/gin"
 )
 
 func procSignature(c *gin.Context) {
-	verify := &model.Verify{}
+	verify := struct {
+		Signature string
+		Timestamp string
+		Nonce     string
+		Echostr   string
+	}{}
 	c.BindQuery(verify)
-	signatureGen := makeSignature(verify.Timestamp, verify.Nonce)
-	log.Println(signatureGen)
-	if signatureGen != verify.Signature {
+	if !validateURL(verify.Timestamp, verify.Nonce, verify.Signature) {
 		c.String(200, "")
 		return
 	}
 	c.String(200, verify.Echostr)
+}
+
+func validateURL(timestamp, nonce, signature string) bool {
+	signatureGen := makeSignature(timestamp, nonce)
+	return signatureGen == signature
 }
 
 func makeSignature(timestamp, nonce string) string { //本地计算signature

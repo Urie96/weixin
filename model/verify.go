@@ -1,8 +1,8 @@
 package model
 
 type Verify struct {
-	Signature string
-	Timestamp string
-	Nonce     string
-	Echostr   string
+	Signature string `json:"signature"`
+	Timestamp string `json:"timestamp"`
+	Nonce     string `json:"nonce"`
+	OpenID    string `json:"openid"`
 }
