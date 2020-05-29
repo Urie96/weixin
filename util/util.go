@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"log"
 )
 
 func PrintStruct(in interface{}) {
@@ -21,4 +22,10 @@ func PrintStruct(in interface{}) {
 		return
 	}
 	fmt.Println(out.String())
+}
+
+func CheckError(err error) {
+	if err != nil {
+		log.Println(err)
+	}
 }

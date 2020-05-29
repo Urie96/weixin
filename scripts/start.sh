@@ -10,4 +10,6 @@ export DB_PWD=
 export DB_URL=59.110.71.167:3306
 export DB_NAME=wx
 
+export CMD_URL=http://cmd.sweetlove.top
+
 go run ./cmd
