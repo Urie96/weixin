@@ -3,8 +3,8 @@ version: "3.5"
 services:
   wxservice:
     build: .
-    # ports:
-    #   - "7001:7001"
+    ports:
+      - "7001:7001"
     container_name: "wxservice"
     volumes:
       - "/etc/localtime:/etc/localtime"
@@ -21,10 +21,10 @@ services:
       - DB_PWD=
       - DB_URL=mysql:3306
       - DB_NAME=wx
-      - CMD_URL=http://localhost:7002
-    network_mode: "host"
-    # networks:
-    #   - default
+      - CMD_URL=http://59.110.71.167:7002
+    # network_mode: "host"
+    networks:
+      - default
     depends_on:
       - mysql
 
