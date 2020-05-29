@@ -22,9 +22,9 @@ services:
       - DB_URL=mysql:3306
       - DB_NAME=wx
       - CMD_URL=http://localhost:7002
-    networks:
-      - default
-      - host
+    network_mode: "host"
+    # networks:
+    #   - default
     depends_on:
       - mysql
 
