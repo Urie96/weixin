@@ -9,7 +9,6 @@ import (
 	"github.com/Urie96/weixin/model"
 
 	"github.com/PuerkitoBio/goquery"
-	"github.com/djimenez/iconv-go"
 )
 
 func CrawlJokes() {
@@ -32,13 +31,14 @@ func jokeListPage(pageIndex int) {
 
 func jokePage(url string) {
 	// url := "http://www.jokeji.cn/jokehtml/bxnn/2020032818121586.htm"
-	converter, _ := iconv.NewConverter("gb2312", "utf-8")
+	// converter, _ := iconv.NewConverter("gb2312", "utf-8")
 	resp, err := http.Get(url)
 	checkError(err)
 	doc, err := goquery.NewDocumentFromReader(resp.Body)
 	checkError(err)
 	doc.Find("span p").Each(func(i int, s *goquery.Selection) {
-		str, _ := converter.ConvertString(s.Text())
+		str := s.Text()
+		// str, _ = converter.ConvertString(str)
 		offset := strings.Index(str, "、") + len("、")
 		if len(str) < offset {
 			return
