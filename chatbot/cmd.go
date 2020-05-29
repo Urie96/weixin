@@ -2,11 +2,11 @@ package chatbot
 
 import (
 	"context"
-	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
+	"strings"
 	"time"
 
 	"github.com/Urie96/weixin/util"
@@ -47,7 +47,7 @@ func callCMD(ctx context.Context, cmd string, ch chan string) {
 		}
 	}()
 	url := os.Getenv("CMD_URL")
-	fmt.Println(url)
+	cmd = strings.ReplaceAll(strings.Trim(cmd, " "), " ", "%20")
 	resp, err := http.Get(url + "?cmd=" + cmd)
 	util.CheckError(err)
 	output, err := ioutil.ReadAll(resp.Body)
