@@ -3,8 +3,8 @@ version: "3.5"
 services:
   wxservice:
     build: .
-    ports:
-      - "7001:7001"
+    # ports:
+    #   - "7001:7001"
     container_name: "wxservice"
     volumes:
       - "/etc/localtime:/etc/localtime"
@@ -24,6 +24,7 @@ services:
       - CMD_URL=http://localhost:7002
     networks:
       - default
+      - host
     depends_on:
       - mysql
 

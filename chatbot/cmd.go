@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"os"
 	"time"
@@ -40,6 +41,11 @@ func asyncCallCMD(ctx context.Context, cmd string) string {
 }
 
 func callCMD(ctx context.Context, cmd string, ch chan string) {
+	defer func() {
+		if err := recover(); err != nil {
+			log.Println("recover:", err)
+		}
+	}()
 	url := os.Getenv("CMD_URL")
 	fmt.Println(url)
 	resp, err := http.Get(url + "?cmd=" + cmd)
