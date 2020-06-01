@@ -15,7 +15,7 @@ func getFestivals() string {
 	for _, festival := range festivals {
 		gap := computeDayGap(today, festival.Date)
 		if gap == last {
-			reply += "\r\n    &  " + festival.Type
+			reply += "\r\n       &     " + festival.Type
 		} else {
 			reply += fmt.Sprintf("\r\n%d天后：%s", gap, festival.Type)
 		}
