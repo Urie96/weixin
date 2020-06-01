@@ -10,17 +10,22 @@ import (
 func getFestivals() string {
 	today := getTodayZeroTimestamp()
 	festivals := dao.GetFestivals(getTodayZeroTimestamp(), 10)
-	reply := ""
+	reply := "纪念日："
+	last := -1
 	for _, festival := range festivals {
 		gap := computeDayGap(today, festival.Date)
-		reply += fmt.Sprintf("%d天后：%s\r\n", gap, festival.Msg)
+		if gap == last {
+			reply += "\r\n    &  " + festival.Type
+		} else {
+			reply += fmt.Sprintf("\r\n%d天后：%s", gap, festival.Type)
+		}
+		last = gap
 	}
 	return reply
 }
 
 func computeDayGap(from, to int64) int {
-	day := int64(time.Hour * 24)
-	return int((from - to) / day)
+	return int((to - from) / (3600 * 24))
 }
 
 func getTodayZeroTimestamp() int64 {
