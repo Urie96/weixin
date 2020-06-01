@@ -19,6 +19,7 @@ func Chat(ctx context.Context, text string) string {
 	case "1":
 		return tellAJoke()
 	case "2":
+		return getFestivals()
 	}
 	if strings.Contains(text, "笑话") {
 		return tellAJoke()

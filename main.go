@@ -2,14 +2,12 @@ package main
 
 import (
 	"fmt"
-
-	"github.com/Urie96/weixin/crawler"
+	"time"
 )
 
 func main() {
-	for y := 2020; y < 2100; y++ {
-		solar := crawler.GetSolar(y, 6, 27)
-		fmt.Println(`"%s":true,`, solar)
-	}
-
+	// util.InsertFestival("06", "27", "悦悦的生日", "", false)
+	t := time.Now()
+	tm1 := time.Date(t.Year(), t.Month(), t.Day(), 0, 0, 0, 0, t.Location())
+	fmt.Println(tm1.Unix())
 }
