@@ -24,5 +24,8 @@ func Chat(ctx context.Context, text string) string {
 	if strings.Contains(text, "笑话") {
 		return tellAJoke()
 	}
+	if strings.Contains(text, "节日") {
+		return getFestivals()
+	}
 	return UnrecognizedAnswer
 }

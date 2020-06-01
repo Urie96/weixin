@@ -10,7 +10,7 @@ import (
 func getFestivals() string {
 	today := getTodayZeroTimestamp()
 	festivals := dao.GetFestivals(getTodayZeroTimestamp(), 10)
-	reply := "纪念日："
+	reply := "节日："
 	last := -1
 	for _, festival := range festivals {
 		gap := computeDayGap(today, festival.Date)
