@@ -37,6 +37,9 @@ func handleCMD(ctx *wxctx.Context, cmd string) string {
 		ctx.IsInCmdMode = false
 		return "退出cmd模式"
 	}
+	if cmd == "GET" {
+		return ctx.LastOutput
+	}
 	return asyncCallCMD(ctx, cmd)
 }
 
