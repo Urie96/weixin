@@ -1,7 +1,6 @@
 package chatbot
 
 import (
-	"context"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -10,6 +9,7 @@ import (
 	"time"
 
 	"github.com/Urie96/weixin/util"
+	"github.com/Urie96/weixin/wxctx"
 )
 
 // type response struct {
@@ -28,19 +28,30 @@ import (
 // 	ctx.Value("response").(*response).text = value
 // }
 
-func asyncCallCMD(ctx context.Context, cmd string) string {
-	// ctx, cancel := context.WithTimeout(ctx, time.Duration(time.Second*5))
+func handleCMD(ctx *wxctx.Context, cmd string) string {
+	if cmd == "#" {
+		ctx.IsInCmdMode = true
+		return "进入cmd模式"
+	}
+	if cmd == "exit" {
+		ctx.IsInCmdMode = false
+		return "退出cmd模式"
+	}
+	return asyncCallCMD(ctx, cmd)
+}
+
+func asyncCallCMD(ctx *wxctx.Context, cmd string) string {
 	ch := make(chan string, 2)
 	go callCMD(ctx, cmd, ch)
 	select {
 	case output := <-ch:
 		return output
 	case <-time.After(time.Duration(time.Second * 4)):
-		return "命令正在努力执行中，稍后可通过#get获取输出"
+		return "命令正在努力执行中，稍后可通过GET命令获取输出"
 	}
 }
 
-func callCMD(ctx context.Context, cmd string, ch chan string) {
+func callCMD(ctx *wxctx.Context, cmd string, ch chan string) {
 	defer func() {
 		if err := recover(); err != nil {
 			log.Println("recover:", err)
@@ -51,6 +62,6 @@ func callCMD(ctx context.Context, cmd string, ch chan string) {
 	util.CheckError(err)
 	output, err := ioutil.ReadAll(resp.Body)
 	util.CheckError(err)
-	// setValue(ctx, string(output))
 	ch <- string(output)
+	ctx.LastOutput = string(output)
 }

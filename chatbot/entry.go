@@ -1,8 +1,9 @@
 package chatbot
 
 import (
-	"context"
 	"strings"
+
+	"github.com/Urie96/weixin/wxctx"
 )
 
 const UnrecognizedAnswer = `对不起，我不够聪明，不能理解你的意思。
@@ -11,9 +12,9 @@ const UnrecognizedAnswer = `对不起，我不够聪明，不能理解你的意�
 
 // 2、即将到来的日子`
 
-func Chat(ctx context.Context, text string) string {
-	if strings.HasPrefix(text, "#") {
-		return asyncCallCMD(ctx, text[len("#"):])
+func Chat(c *wxctx.Context, text string) string {
+	if strings.HasPrefix(text, "#") || c.IsInCmdMode {
+		return handleCMD(c, text)
 	}
 	switch text {
 	case "1":

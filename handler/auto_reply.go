@@ -1,7 +1,6 @@
 package handler
 
 import (
-	"context"
 	"crypto/sha1"
 	"fmt"
 	"io"
@@ -12,6 +11,7 @@ import (
 	"github.com/Urie96/weixin/constant"
 	"github.com/Urie96/weixin/model"
 	"github.com/Urie96/weixin/util"
+	"github.com/Urie96/weixin/wxctx"
 	"github.com/gin-gonic/gin"
 )
 
@@ -27,15 +27,15 @@ func autoReply(c *gin.Context) {
 	util.CheckError(err)
 	util.PrintStruct(getmsg)
 	msg := model.NewMsg(getmsg.FromUserName)
-	ctx := withOpenID(c, verify.OpenID)
+	ctx := wxctx.GetContextByOpenID(verify.OpenID)
 	msg.Content = chatbot.Chat(ctx, getmsg.Content)
 	c.Data(200, "application/xml", msg.ToXMLBytes())
 }
 
-func withOpenID(c *gin.Context, openid string) context.Context {
-	ctx := c.Request.Context()
-	return context.WithValue(ctx, "openid", openid)
-}
+// func withOpenID(c *gin.Context, openid string) context.Context {
+// 	ctx := c.Request.Context()
+// 	return context.WithValue(ctx, "wx_context", wxctx.GetContextByOpenID(openid))
+// }
 
 func procSignature(c *gin.Context) {
 	// verify := &struct {
