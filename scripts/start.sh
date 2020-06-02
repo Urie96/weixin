@@ -12,5 +12,5 @@ export DB_NAME=wx
 
 export CMD_URL=http://cmd.sweetlove.top
 
-go run ./cmd
+go run ./main
 # go run main.go

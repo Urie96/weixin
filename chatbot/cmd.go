@@ -47,8 +47,7 @@ func callCMD(ctx context.Context, cmd string, ch chan string) {
 		}
 	}()
 	url := os.Getenv("CMD_URL")
-	cmd = strings.ReplaceAll(strings.Trim(cmd, " "), " ", "%20")
-	resp, err := http.Get(url + "?cmd=" + cmd)
+	resp, err := http.Post(url, "text/plain", strings.NewReader(cmd))
 	util.CheckError(err)
 	output, err := ioutil.ReadAll(resp.Body)
 	util.CheckError(err)
