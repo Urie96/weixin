@@ -10,12 +10,15 @@ import (
 type Msg struct {
 	ToUserName   string
 	FromUserName string
-	CreateTime   int
+	CreateTime   int64
 	MsgType      string
 	Content      string
 	MsgId        int
 	Event        string
 	EventKey     string
+	Recognition  string
+	Format       string
+	MediaId      string
 }
 
 func NewMsg(touser string) *Msg {
@@ -23,7 +26,7 @@ func NewMsg(touser string) *Msg {
 		ToUserName:   touser,
 		FromUserName: constant.ID,
 		MsgType:      "text",
-		CreateTime:   int(time.Now().UTC().Unix()),
+		CreateTime:   time.Now().UTC().Unix(),
 	}
 }
 

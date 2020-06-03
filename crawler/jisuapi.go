@@ -10,6 +10,9 @@ import (
 )
 
 func AIQA(question string) string {
+	if question == "" {
+		return ""
+	}
 	url := "https://www.jisuapi.com/debug/iqa/?act=relay"
 	body := fmt.Sprintf("url=%s&question=%s", "https://api.jisuapi.com/iqa/query", question)
 	resp := post(url, body)

@@ -26,10 +26,21 @@ func autoReply(c *gin.Context) {
 	err := c.BindXML(getmsg)
 	util.CheckError(err)
 	util.PrintStruct(getmsg)
-	msg := model.NewMsg(getmsg.FromUserName)
 	ctx := wxctx.GetContextByOpenID(verify.OpenID)
-	msg.Content = chatbot.Chat(ctx, getmsg.Content)
-	c.Data(200, "application/xml", msg.ToXMLBytes())
+	sendMsg := model.NewMsg(getmsg.FromUserName)
+	content := getTextAndVoiceContent(getmsg)
+	sendMsg.Content = chatbot.Chat(ctx, content)
+	c.Data(200, "application/xml", sendMsg.ToXMLBytes())
+}
+
+func getTextAndVoiceContent(msg *model.Msg) string {
+	switch msg.MsgType {
+	case "text":
+		return msg.Content
+	case "voice":
+		return msg.Recognition
+	}
+	return ""
 }
 
 // func withOpenID(c *gin.Context, openid string) context.Context {

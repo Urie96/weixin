@@ -32,7 +32,7 @@ func Chat(c *wxctx.Context, text string) string {
 }
 
 func saveChatRecord(openID, question, answer string) {
-	if answer == "" || question == "" {
+	if answer == "" || question == "" || question == "defaultReply" {
 		return
 	}
 	defer func() {
