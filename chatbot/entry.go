@@ -13,9 +13,7 @@ import (
 	"github.com/Urie96/weixin/wxctx"
 )
 
-const UnrecognizedAnswer = `对不起，我不够聪明，不能理解你的意思。
-你可以试试这样：
-1、讲笑话`
+const DefaultReply = `抱歉，现在的我还不能明白您的意思`
 
 // 2、即将到来的日子`
 
@@ -27,14 +25,14 @@ func Chat(c *wxctx.Context, text string) string {
 		return getFestivals()
 	}
 	reply := crawler.AIQA(text)
+	if reply == "defaultReply" {
+		return DefaultReply
+	}
 	go saveChatRecord(c.OpenID, text, reply)
 	return reply
 }
 
 func saveChatRecord(openID, question, answer string) {
-	if answer == "" || question == "" || question == "defaultReply" {
-		return
-	}
 	defer func() {
 		if err := recover(); err != nil {
 			log.Println("recover:", err)
