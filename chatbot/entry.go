@@ -1,7 +1,14 @@
 package chatbot
 
 import (
+	"log"
 	"strings"
+
+	"github.com/Urie96/weixin/model"
+
+	"github.com/Urie96/weixin/dao"
+
+	"github.com/Urie96/weixin/crawler"
 
 	"github.com/Urie96/weixin/wxctx"
 )
@@ -16,17 +23,27 @@ func Chat(c *wxctx.Context, text string) string {
 	if strings.HasPrefix(text, "#") || c.IsInCmdMode {
 		return handleCMD(c, text)
 	}
-	switch text {
-	case "1":
-		return tellAJoke()
-	case "2":
+	if text == "节日" {
 		return getFestivals()
 	}
-	if strings.Contains(text, "笑话") {
-		return tellAJoke()
+	reply := crawler.AIQA(text)
+	go saveChatRecord(c.OpenID, text, reply)
+	return reply
+}
+
+func saveChatRecord(openID, question, answer string) {
+	if answer == "" || question == "" {
+		return
 	}
-	if strings.Contains(text, "节日") {
-		return getFestivals()
+	defer func() {
+		if err := recover(); err != nil {
+			log.Println("recover:", err)
+		}
+	}()
+	record := &model.ChatRecord{
+		OpenID:   openID,
+		Question: question,
+		Answer:   answer,
 	}
-	return UnrecognizedAnswer
+	dao.InsertChatRecord(record)
 }

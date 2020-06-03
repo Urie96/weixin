@@ -44,13 +44,14 @@ func handleCMD(ctx *wxctx.Context, cmd string) string {
 }
 
 func asyncCallCMD(ctx *wxctx.Context, cmd string) string {
+	ctx.LastOutput = "命令正在努力执行中，稍后可通过GET命令获取输出"
 	ch := make(chan string, 2)
 	go callCMD(ctx, cmd, ch)
 	select {
 	case output := <-ch:
 		return output
 	case <-time.After(time.Duration(time.Second * 4)):
-		return "命令正在努力执行中，稍后可通过GET命令获取输出"
+		return ctx.LastOutput
 	}
 }
 

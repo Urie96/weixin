@@ -1,18 +1,17 @@
-package main
+package crawler
 
 import (
 	"fmt"
 	"io/ioutil"
-	"log"
 	"net/http"
 	"strings"
 
 	"github.com/buger/jsonparser"
 )
 
-func main() {
+func AIQA(question string) string {
 	url := "https://www.jisuapi.com/debug/iqa/?act=relay"
-	body := fmt.Sprintf("url=%s&question=%s", "https://api.jisuapi.com/iqa/query", "讲个笑话")
+	body := fmt.Sprintf("url=%s&question=%s", "https://api.jisuapi.com/iqa/query", question)
 	resp := post(url, body)
 	b, _ := ioutil.ReadAll(resp.Body)
 	if string(b[:9]) == "<!DOCTYPE" { //need login
@@ -22,13 +21,7 @@ func main() {
 	}
 	val, _ := jsonparser.GetString(b, "body")
 	content, _ := jsonparser.GetString([]byte(val), "result", "content")
-	fmt.Println(content)
-}
-
-func checkError(err error) {
-	if err != nil {
-		log.Println(err)
-	}
+	return content
 }
 
 func login() {
