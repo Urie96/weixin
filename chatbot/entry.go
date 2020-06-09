@@ -4,12 +4,9 @@ import (
 	"log"
 	"strings"
 
-	"github.com/Urie96/weixin/model"
-
-	"github.com/Urie96/weixin/dao"
-
 	"github.com/Urie96/weixin/crawler"
-
+	"github.com/Urie96/weixin/dao"
+	"github.com/Urie96/weixin/model"
 	"github.com/Urie96/weixin/wxctx"
 )
 
@@ -23,6 +20,9 @@ func Chat(c *wxctx.Context, text string) string {
 	}
 	if text == "节日" {
 		return getFestivals()
+	}
+	if strings.Contains(text, "情话") {
+		return crawler.GetLoveTalk()
 	}
 	reply := crawler.AIQA(text)
 	if reply == "defaultReply" {
