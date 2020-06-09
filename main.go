@@ -11,18 +11,28 @@ import (
 )
 
 func main() {
-	url := "https://www.jisuapi.com/debug/iqa/?act=relay"
-	body := fmt.Sprintf("url=%s&question=%s", "https://api.jisuapi.com/iqa/query", "讲个笑话")
-	resp := post(url, body)
+	url := "http://openapi.tuling123.com/openapi/api/v2"
+	postbody := fmt.Sprintf(`{
+		"reqType":0,
+		"perception": {
+			"inputText": {
+				"text": "%s"
+			}
+		},
+		"userInfo": {
+			"apiKey": "8de9915257594bf3a4b4ad1f2d6f1769",
+			"userId": "%s"
+		}
+	}`, "你好", "111")
+	resp, _ := http.Post(url, "application/json", strings.NewReader(postbody))
 	b, _ := ioutil.ReadAll(resp.Body)
-	if string(b[:9]) == "<!DOCTYPE" { //need login
-		login()
-		resp = post(url, body)
-		b, _ = ioutil.ReadAll(resp.Body)
-	}
-	val, _ := jsonparser.GetString(b, "body")
-	content, _ := jsonparser.GetString([]byte(val), "result", "content")
-	fmt.Println(content)
+	var val string
+	fmt.Println(string(b))
+	jsonparser.ArrayEach(b, func(value []byte, dataType jsonparser.ValueType, offset int, err error) {
+		val, _ = jsonparser.GetString(value, "values", "text")
+	}, "results")
+	fmt.Println(val)
+	return
 }
 
 func checkError(err error) {

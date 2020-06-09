@@ -24,7 +24,8 @@ func Chat(c *wxctx.Context, text string) string {
 	if strings.Contains(text, "情话") {
 		return crawler.GetLoveTalk()
 	}
-	reply := crawler.AIQA(text)
+	// reply := crawler.AIQA(text)
+	reply := crawler.TuLingAPI(text, c.OpenID)
 	if reply == "defaultReply" {
 		return DefaultReply
 	}
