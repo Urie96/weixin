@@ -9,6 +9,7 @@ import (
 	"github.com/buger/jsonparser"
 )
 
+// use http.request to get answer from tuling web
 func TuLingAPI(text, openid string) string {
 	url := "http://openapi.tuling123.com/openapi/api/v2"
 	postbody := fmt.Sprintf(`{

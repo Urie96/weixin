@@ -14,7 +14,7 @@ func checkError(err error) {
 	}
 }
 
-func generateHtml(resp *http.Response) {
+func generateHTML(resp *http.Response) {
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		fmt.Println(err)

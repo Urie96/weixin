@@ -8,6 +8,9 @@ import (
 	"strings"
 )
 
+/*
+GetSolar convert lunar to solar
+*/
 func GetSolar(year, month, day int) string {
 	reqBody := fmt.Sprintf("type=lunar&year=%d&month=%d&day=%d", year, month, day)
 	resp, err := http.Post("https://www.iamwawa.cn/home/nongli/ajax",
